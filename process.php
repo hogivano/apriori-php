@@ -4,8 +4,8 @@ ini_set('max_execution_time', 300);
 $resultSupport = [];
 $resultConfidence = [];
 
-$support = 3;
-$confidence = 20;
+$support = $_POST['support'];
+$confidence = $_POST['confidence'];
 
 if (isset($support) && isset($confidence)){
   $min_suport = $support;
@@ -28,20 +28,70 @@ if (isset($support) && isset($confidence)){
       }
     }
   }
+  // print_r($resultSupport);
   for ($i=1; $i < sizeof($resultSupport); $i++) {
     # code...
     $arr = [];
-    for ($j=0; $j < $resultSupport[$i]; $j++) {
+    for ($j=0; $j < sizeof($resultSupport[$i]); $j++) {
       # code...
-      $start = 1;
-      $on = [];
-      while($start < sizeof($resultSupport[$i][$j]['item_id'])){
-        
+      // print_r($resultSupport[$i][$j]);
+      if (sizeof($resultSupport[$i][$j]['item_id']) == 2){
+        getCount2($resultSupport[$i][$j], $resultSupport[$i-1]);
+      }else if (sizeof($resultSupport[$i][$j]['item_id']) == 3){
+
+      } else if (sizeof($resultSupport[$i][$j]['item_id']) == 4){
+
+      } else if(sizeof($resultSupport[$i][$j]['item_id']) == 5){
+
       }
     }
   }
 } else {
   header("Location: start.php");
+}
+
+function countCombine($arr, $resultSupport){
+  $item_id = $arr['item_id'];
+  for ($j=0; $j < sizeof($resultSupport); $j++) {
+    $cek = 0;
+    for ($i=0; $i < sizeof($resultSupport[$j]['item_id']); $i++) {
+      # code...
+      if ($resultSupport[$j]['item_id'][$i] == $item_id['id']){
+        $cek++;
+      }
+    }
+    if ($cek == sizeof($item_id)){
+      return $resultSupport[$j]['count'];
+    }
+  }
+  return 0;
+}
+
+function getCount2($arr, $resultSupport){
+  $result = [];
+  $item_id = $arr['item_id'];
+  // print_r($item_id);
+  // print_r(countCombine($item_id, $resultSupport));
+  // array_push($result, ['from' => $item_id[0], 'to' => $item_id[1], 'count' => countCombine($item_id, $resultSupport), 'percent' => ]);
+  // array_push($result, ['from' => $item_id[1], 'to' => $item_id[0], 'count' => countCombine($item_id, $resultSupport), 'percent' => ]);
+
+
+}
+
+function getCount3($arr, $resultSupport){
+
+}
+
+function getCount4($arr, $resultSupport){
+
+}
+
+function getCount5($arr, $resultSupport){
+
+}
+
+function getCount6($arr, $resultSupport){
+
 }
 
 function getCount($arr, $resultSupport){
